@@ -46,7 +46,7 @@ fun checkInputString(input: String, solution: String): NMReturn {
     var m: Int = 0
 
     //number of digits guessed correctly
-    var cleanInput: String = input.toList().distinct().toString()
+    var cleanInput: List<Char> = input.toList().distinct()
     for (chr in cleanInput) {
         if (chr in solution) {
             n++
