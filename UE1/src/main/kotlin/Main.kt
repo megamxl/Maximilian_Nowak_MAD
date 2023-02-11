@@ -11,6 +11,7 @@ fun main(args: Array<String>) {
         println("Write a 4 digit number to guess ")
         val reader: Scanner = Scanner(System.`in`)
         while (true) {
+            print("User input: ")
             val input: String = reader.next()
             if (input == "x") {
                 println("The computed guess was $computedGuess")
@@ -21,7 +22,7 @@ fun main(args: Array<String>) {
                 println("You won the computed guess was $computedGuess")
                 return
             }
-            println("${curr.n}:${curr.m}")
+            println("Output: ${curr.n}:${curr.m}")
         }
     }
 }
@@ -62,4 +63,3 @@ fun checkInputString(input: String, solution: String): NMReturn {
 
     return NMReturn(n, m)
 }
-
