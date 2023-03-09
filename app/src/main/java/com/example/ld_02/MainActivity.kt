@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,13 +12,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.FavoriteBorder
+import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,9 @@ fun Greeting(name: String) {
 fun movieItem(
     curr : Movie
 ) {
+    var isOpend by remember {
+        mutableStateOf(Icons.Rounded.KeyboardArrowUp)
+    }
 
     Card(shape = RoundedCornerShape(25.dp),modifier = Modifier.padding(0.dp,10.dp)) {
         Column() {
@@ -80,8 +84,15 @@ fun movieItem(
             ) {
                 Text(text = curr.title)
                 Icon(
-                    imageVector = Icons.Rounded.KeyboardArrowUp,
+                    imageVector = isOpend,
                     contentDescription = null,
+                    modifier = Modifier.clickable {
+                        if (isOpend == Icons.Rounded.KeyboardArrowUp) {
+                            isOpend = Icons.Rounded.KeyboardArrowDown
+                        } else {
+                            isOpend = Icons.Rounded.KeyboardArrowUp
+                        }
+                    }
                 )
             }
         }
