@@ -69,8 +69,7 @@ fun MovieItem(
     Card(shape = RoundedCornerShape(25.dp), modifier = Modifier.padding(0.dp, 10.dp)) {
         Column {
             Box(modifier = Modifier.height(170.dp)) {
-                //val painter = rememberAsyncImagePainter(model = "https://images-na.ssl-images-amazon.com/images/M/MV5BMzE3MTM0MTc3Ml5BMl5BanBnXkFtZTgwMDIyODgxMzE@._V1_SX1500_CR0,0,1500,999_AL_.jpg" )
-                val painter = rememberAsyncImagePainter(model = curr.images[2])
+                val painter = rememberAsyncImagePainter(model = curr.images.random())
                 Image(
                     painter = painter,
                     contentDescription = "image",
