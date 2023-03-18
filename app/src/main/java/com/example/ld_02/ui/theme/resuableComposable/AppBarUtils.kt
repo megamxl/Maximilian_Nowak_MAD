@@ -14,17 +14,16 @@ import com.example.ld_02.navigation.Screens
 
 @Composable
 fun TOpAppBarWithBackButton(title: String, navController: NavController) {
-    TopAppBar(
-        elevation = 4.dp,
-        title = {
-            Text(title)
-        },
-        backgroundColor = MaterialTheme.colors.primarySurface,
-        navigationIcon = {
-            IconButton(onClick = { navController.navigate(Screens.Home.route) }) {
-                Icon(Icons.Filled.ArrowBack, null)
-            }
-        })
+    TopAppBar(elevation = 4.dp, title = {
+        Text(title)
+    }, backgroundColor = MaterialTheme.colors.primarySurface, navigationIcon = {
+        IconButton(onClick = {
+            navController.popBackStack()
+            navController.navigate(Screens.Home.route)
+        }) {
+            Icon(Icons.Filled.ArrowBack, null)
+        }
+    })
 }
 
 @Composable
@@ -33,32 +32,27 @@ fun TopBarWithFavorites(navController: NavController) {
         mutableStateOf(false)
     }
 
-    TopAppBar(
-        elevation = 4.dp,
-        title = {
-            Text("My Movie Palace")
-        },
-        backgroundColor = MaterialTheme.colors.primarySurface,
-        actions = {
-            IconButton(
-                onClick = {
-                    isFavoritesCollapsed = true
-                },
-            ) {
-                Icon(Icons.Filled.MoreVert, null)
-            }
-            DropdownMenu(
-                expanded = isFavoritesCollapsed,
-                onDismissRequest = {
-                    isFavoritesCollapsed = false
-                }
-            ) {
-                DropdownMenuItem(onClick = { navController.navigate(Screens.Favorites.route) }) {
-                    Row {
-                        Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
-                        Text(text = " Favorites")
-                    }
+    TopAppBar(elevation = 4.dp, title = {
+        Text("My Movie Palace")
+    }, backgroundColor = MaterialTheme.colors.primarySurface, actions = {
+        IconButton(
+            onClick = {
+                isFavoritesCollapsed = true
+            },
+        ) {
+            Icon(Icons.Filled.MoreVert, null)
+        }
+        DropdownMenu(expanded = isFavoritesCollapsed, onDismissRequest = {
+            isFavoritesCollapsed = false
+        }) {
+            DropdownMenuItem(onClick = {
+                navController.navigate(Screens.Favorites.route)
+            }) {
+                Row {
+                    Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
+                    Text(text = " Favorites")
                 }
             }
-        })
+        }
+    })
 }

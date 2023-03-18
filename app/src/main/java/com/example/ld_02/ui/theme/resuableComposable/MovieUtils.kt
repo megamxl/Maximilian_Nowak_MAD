@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -16,37 +17,49 @@ import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.ld_02.FavoriteListSingleton
 import com.example.ld_02.models.Movie
 import com.example.ld_02.navigation.Screens
 
 @Composable
 fun MovieItem(
     curr: Movie,
-    onItemClick : (String) -> Unit = {}
+    onItemClick: (String) -> Unit = {}
 ) {
+
+    var col = Color.Cyan
+    if(!FavoriteListSingleton.isInList(curr.id)){
+            col = Color.White
+    }
+
     var isOpened by remember {
         mutableStateOf(false)
     }
 
     var isLiked by remember {
-        mutableStateOf(Color.White)
+        mutableStateOf(col)
     }
     var arrow by remember {
         mutableStateOf(Icons.Rounded.KeyboardArrowDown)
     }
 
     Card(shape = RoundedCornerShape(25.dp),
-        modifier = Modifier.padding(10.dp, 10.dp
-        ).clickable { onItemClick("") }) {
+        modifier = Modifier
+            .padding(
+                10.dp, 10.dp
+            )
+            .clickable { onItemClick("") }) {
         Column {
             Box(modifier = Modifier.height(170.dp)) {
                 val painter = rememberAsyncImagePainter(model = curr.images[0])
@@ -65,8 +78,10 @@ fun MovieItem(
                         .padding(horizontal = 15.dp, vertical = 15.dp)
                         .clickable {
                             isLiked = if (isLiked == Color.White) {
+                                FavoriteListSingleton.addMovie(curr.id)
                                 Color.Cyan
                             } else {
+                                FavoriteListSingleton.removeMovie(curr.id)
                                 Color.White
                             }
                         },
@@ -102,7 +117,7 @@ fun MovieItem(
                     Text(text = "Release: ${curr.year}")
                     Text(text = "Genre: ${curr.genre}")
                     Text(text = "Actors: ${curr.actors}")
-                    Text(text = "Rating: ${curr.rating}" )
+                    Text(text = "Rating: ${curr.rating}")
                     Spacer(modifier = Modifier.height(10.dp))
                     Divider(startIndent = 0.dp, thickness = 1.dp, color = Color.Black)
                     Spacer(modifier = Modifier.height(10.dp))
@@ -118,9 +133,42 @@ fun MovieItem(
 @Composable
 fun ListOfMovie(movieList: List<Movie>, navController: NavController) {
 
-    LazyColumn {
-        items(movieList) { movie -> MovieItem(curr = movie){
-                movieId -> navController.navigate(Screens.Detail.passId(movie.id))
-        } }
+     LazyColumn {
+        items(movieList) { movie ->
+            MovieItem(curr = movie) { movieId ->
+                navController.navigate(Screens.Detail.passId(movie.id))
+            }
+        }
+    }
+}
+
+@Composable
+fun MovieSlider(links: List<String>) {
+    Column {
+        Text(
+            text = "Movie images",
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Bold,
+            fontSize = 50.sp,
+            modifier = Modifier.fillMaxWidth()
+        )
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            items(items = links, itemContent = {
+                val painter = rememberAsyncImagePainter(model = it)
+                Image(
+                    painter = painter,
+                    contentDescription = "image",
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(400.dp)
+                        .padding(10.dp),
+                    contentScale = ContentScale.FillHeight
+                )
+            })
+        }
     }
 }
