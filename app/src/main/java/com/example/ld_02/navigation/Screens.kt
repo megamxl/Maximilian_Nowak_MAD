@@ -10,4 +10,6 @@ sealed class Screens(val route: String) {
             return "detail_screen/$id"
         }
     }
+    object AddMovie : Screens(route = "add_movie")
+
 }

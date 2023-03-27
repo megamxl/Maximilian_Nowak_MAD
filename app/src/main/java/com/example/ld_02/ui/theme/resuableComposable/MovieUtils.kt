@@ -17,7 +17,7 @@ import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,26 +28,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.ld_02.FavoriteListSingleton
 import com.example.ld_02.models.Movie
 import com.example.ld_02.navigation.Screens
+import com.example.ld_02.viewmodel.MovieViewModel
 
 @Composable
 fun MovieItem(
     curr: Movie,
-    onItemClick: (String) -> Unit = {}
-) {
+    onItemClick: (String) -> Unit = {},
+    onLiked: (Movie, Boolean) -> Unit ,
+    ) {
 
     var col = Color.Cyan
-    if(!FavoriteListSingleton.isInList(curr.id)){
+    if(!curr.isFavorite){
             col = Color.White
     }
-
     var isOpened by remember {
         mutableStateOf(false)
     }
-
-    var isLiked by remember {
+    var isLiked by remember{
         mutableStateOf(col)
     }
     var arrow by remember {
@@ -78,16 +77,15 @@ fun MovieItem(
                         .padding(horizontal = 15.dp, vertical = 15.dp)
                         .clickable {
                             isLiked = if (isLiked == Color.White) {
-                                FavoriteListSingleton.addMovie(curr.id)
+                                onLiked(curr, true)
                                 Color.Cyan
                             } else {
-                                FavoriteListSingleton.removeMovie(curr.id)
+                                onLiked(curr, false)
                                 Color.White
                             }
                         },
                     tint = isLiked,
                 )
-
             }
             Row(
                 modifier = Modifier
@@ -131,14 +129,17 @@ fun MovieItem(
 }
 
 @Composable
-fun ListOfMovie(movieList: List<Movie>, navController: NavController) {
+fun ListOfMovie(movieList: List<Movie>, navController: NavController, onLiked: (Movie, Boolean) -> Unit) {
+
 
      LazyColumn {
-        items(movieList) { movie ->
-            MovieItem(curr = movie) { movieId ->
+         items(movieList) { movie ->
+             MovieItem(curr = movie, onItemClick = { movieId ->
                 navController.navigate(Screens.Detail.passId(movie.id))
-            }
-        }
+            },
+                onLiked =  onLiked
+             )
+         }
     }
 }
 

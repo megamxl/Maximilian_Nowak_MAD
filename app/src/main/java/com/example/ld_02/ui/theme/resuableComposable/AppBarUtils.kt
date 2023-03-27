@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,14 @@ fun TopBarWithFavorites(navController: NavController) {
                 Row {
                     Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
                     Text(text = " Favorites")
+                }
+            }
+            DropdownMenuItem(onClick = {
+                navController.navigate(Screens.AddMovie.route)
+            }) {
+                Row {
+                    Icon(imageVector = Icons.Rounded.Edit, contentDescription = null)
+                    Text(text = " Add a Movie")
                 }
             }
         }
