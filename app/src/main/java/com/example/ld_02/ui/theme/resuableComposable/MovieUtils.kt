@@ -38,16 +38,8 @@ fun MovieItem(
     onItemClick: (String) -> Unit = {},
     onLiked: (Movie, Boolean) -> Unit ,
     ) {
-
-    var col = Color.Cyan
-    if(!curr.isFavorite){
-            col = Color.White
-    }
     var isOpened by remember {
         mutableStateOf(false)
-    }
-    var isLiked by remember{
-        mutableStateOf(col)
     }
     var arrow by remember {
         mutableStateOf(Icons.Rounded.KeyboardArrowDown)
@@ -76,15 +68,17 @@ fun MovieItem(
                         .align(Alignment.TopEnd)
                         .padding(horizontal = 15.dp, vertical = 15.dp)
                         .clickable {
-                            isLiked = if (isLiked == Color.White) {
-                                onLiked(curr, true)
-                                Color.Cyan
-                            } else {
+                            if (curr.isFavorite.value) {
                                 onLiked(curr, false)
-                                Color.White
+                            } else {
+                                onLiked(curr, true)
                             }
                         },
-                    tint = isLiked,
+                    tint = if (curr.isFavorite.value) {
+                        Color.Cyan
+                    } else {
+                           Color.White
+                    },
                 )
             }
             Row(
