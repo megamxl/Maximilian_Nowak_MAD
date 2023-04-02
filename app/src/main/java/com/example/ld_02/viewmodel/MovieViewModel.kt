@@ -17,6 +17,9 @@ class MovieViewModel : ViewModel() {
         _movieList.find { it.id == movie.id }?.isFavorite?.value = checked
     }
 
+    fun addMovie(movie: Movie) {
+        _movieList.add(movie)
+    }
 
 
 

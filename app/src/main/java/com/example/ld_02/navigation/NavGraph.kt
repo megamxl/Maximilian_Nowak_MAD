@@ -47,7 +47,7 @@ fun SetupNavGraph(
         composable(
             route = Screens.AddMovie.route
         ){
-            AddMovieScreen(navController = navController)
+            AddMovieScreen(navController = navController, viewModel)
         }
 
     }
