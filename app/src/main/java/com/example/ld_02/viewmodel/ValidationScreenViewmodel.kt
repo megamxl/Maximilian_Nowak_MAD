@@ -86,6 +86,14 @@ class ValidationScreenViewmodel(
             return
         } else {
             state = state.copy(isButtonEnabled = true)
+            state = state.copy(
+                tileError = null,
+                yearError = null,
+                genresError = null,
+                directorError = null,
+                actorsError = null,
+                ratingError = null,
+            )
             if (launch) {
                 viewModelScope.launch {
                     _validationEventChannel.send(ValidationEvent.Success)
