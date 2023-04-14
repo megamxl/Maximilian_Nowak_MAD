@@ -28,15 +28,16 @@ import com.example.ld_02.models.Movie
 import com.example.ld_02.navigation.Screens
 import com.example.ld_02.ui.*
 import com.example.ld_02.ui.theme.resuableComposable.TOpAppBarWithBackButton
-import com.example.ld_02.viewmodel.MovieViewModel
+import com.example.ld_02.viewmodel.AddMovieScreenViewModel
+import com.example.ld_02.viewmodel.HomeScreenViewModel
 import com.example.ld_02.viewmodel.ValidationScreenViewmodel
 import kotlin.random.Random
 
 @Composable
-fun AddMovieScreen(navController: NavController, movie: MovieViewModel) {
+fun AddMovieScreen(navController: NavController, viewModel: AddMovieScreenViewModel) {
     val scaffoldState = rememberScaffoldState()
 
-    val addMovie = { m: Movie -> movie.addMovie(m) }
+    val addMovie = { m: Movie -> viewModel.addMovie(m) }
     val navHome = {navController.navigate(Screens.Home.route)}
 
     Scaffold(
@@ -207,7 +208,6 @@ fun MainContent(modifier: Modifier = Modifier, onItemClick: (Movie) -> Unit, nav
             Button(enabled = state.isButtonEnabled, onClick = {
                 viewModel.onEvent(AddMovieFormEvent.Submit)
                 onItemClick(Movie(
-                    id = state.tile+ state.plot+ state.director + Random.nextInt(500,1000),
                     title = state.tile,
                     year = state.year,
                     genre = listOf(Genre.ACTION),
