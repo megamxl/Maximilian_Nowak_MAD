@@ -1,12 +1,9 @@
 package com.example.ld_02.models
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-
 fun getMovies(): List<Movie> {
     return listOf(
         Movie(
-            id=1,
+            id = 1,
             title = "Avatar",
             year = "2009",
             genre = listOf(Genre.ACTION, Genre.ADVENTURE, Genre.FANTASY),
@@ -24,7 +21,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=2,
+            id = 2,
             title = "300",
             year = "2006",
             genre = listOf(Genre.ACTION, Genre.DRAMA, Genre.FANTASY),
@@ -40,7 +37,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=3,
+            id = 3,
             title = "The Avengers",
             year = "2012",
             genre = listOf(Genre.ACTION, Genre.SCIFI, Genre.THRILLER),
@@ -58,7 +55,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=4,
+            id = 4,
             title = "The Wolf of Wall Street",
             year = "2013",
             genre = listOf(Genre.BIOGRAPHY, Genre.COMEDY, Genre.COMEDY),
@@ -76,7 +73,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=5,
+            id = 5,
             title = "Interstellar",
             year = "2014",
             genre = listOf(Genre.ADVENTURE, Genre.DRAMA, Genre.SCIFI),
@@ -93,7 +90,7 @@ fun getMovies(): List<Movie> {
             rating = 8.6f
         ),
         Movie(
-            id=6,
+            id = 6,
             title = "Game of Thrones",
             year = "2011 - 2018",
             genre = listOf(Genre.ADVENTURE, Genre.DRAMA, Genre.FANTASY),
@@ -112,7 +109,7 @@ fun getMovies(): List<Movie> {
 
 
         Movie(
-            id=7,
+            id = 7,
             title = "Vikings",
             year = "2013–2020",
             genre = listOf(Genre.ACTION, Genre.DRAMA, Genre.HISTORY),
@@ -130,7 +127,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=8,
+            id = 8,
             title = "Breaking Bad",
             year = "2008–2013",
             genre = listOf(Genre.CRIME, Genre.DRAMA, Genre.THRILLER),
@@ -148,7 +145,7 @@ fun getMovies(): List<Movie> {
         ),
 
         Movie(
-            id=9,
+            id = 9,
             title = "Narcos",
             year = "2015-",
             genre = listOf(Genre.BIOGRAPHY, Genre.CRIME, Genre.DRAMA),
@@ -164,5 +161,5 @@ fun getMovies(): List<Movie> {
             ),
             rating = 9.5f
         ),
-        )
+    )
 }

@@ -35,8 +35,8 @@ fun MovieItem(
     curr: Movie,
     boolean: Boolean,
     onItemClick: (String) -> Unit = {},
-    onLiked: (Movie) -> Unit ,
-    ) {
+    onLiked: (Movie) -> Unit,
+) {
     var isOpened by remember {
         mutableStateOf(false)
     }
@@ -73,17 +73,17 @@ fun MovieItem(
                         .padding(horizontal = 15.dp, vertical = 15.dp)
                         .clickable {
                             if (isFav) {
-                                isFav = ! isFav
+                                isFav = !isFav
                                 onLiked(curr)
                             } else {
-                                isFav = ! isFav
+                                isFav = !isFav
                                 onLiked(curr)
                             }
                         },
                     tint = if (isFav) {
                         Color.Cyan
                     } else {
-                           Color.White
+                        Color.White
                     },
                 )
             }
@@ -132,15 +132,16 @@ fun MovieItem(
 fun ListOfMovie(movieList: List<Movie>, navController: NavController, onLiked: (Movie) -> Unit) {
 
 
-     LazyColumn {
-         items(movieList) { movie ->
-             MovieItem(curr = movie, onItemClick = { movieId ->
-                navController.navigate(Screens.Detail.passId(movie.id.toString()))
-            },
-                onLiked =  onLiked,
-                 boolean = movie.isFavorite
-             )
-         }
+    LazyColumn {
+        items(movieList) { movie ->
+            MovieItem(
+                curr = movie, onItemClick = { movieId ->
+                    navController.navigate(Screens.Detail.passId(movie.id.toString()))
+                },
+                onLiked = onLiked,
+                boolean = movie.isFavorite
+            )
+        }
     }
 }
 

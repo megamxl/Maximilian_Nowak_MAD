@@ -55,24 +55,24 @@ class ValidationScreenViewmodel(
     }
 
 
-
     private fun submitData(launch: Boolean) {
 
-        val titleResult = validatSimpleInput.execute(state.tile,"The title can't be empty")
+        val titleResult = validatSimpleInput.execute(state.tile, "The title can't be empty")
         val yearResult = validatSimpleInput.execute(state.year, "The year can't be empty")
         val genresResult = validtateGenres.execute(state.genres, "You must select one genre")
-        val directorResult = validatSimpleInput.execute(state.director, "The director can't be empty")
-        val actorsResult = validatSimpleInput.execute(state.actors,"The actor's cant be empty")
+        val directorResult =
+            validatSimpleInput.execute(state.director, "The director can't be empty")
+        val actorsResult = validatSimpleInput.execute(state.actors, "The actor's cant be empty")
         var ratingResult = validatSimpleInput.execute(state.rating, "The rating can't be empty")
 
-         val hasErr =  listOf(
+        val hasErr = listOf(
             titleResult,
             yearResult,
             genresResult,
             directorResult,
             actorsResult,
             ratingResult
-        ).any{ it.errorMessage!=null}
+        ).any { it.errorMessage != null }
 
         if (hasErr) {
             state = state.copy(

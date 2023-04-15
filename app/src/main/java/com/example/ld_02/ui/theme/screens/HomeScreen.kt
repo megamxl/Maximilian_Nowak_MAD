@@ -11,12 +11,16 @@ import com.example.ld_02.viewmodel.HomeScreenViewModel
 
 
 @Composable
-fun HomeScreenWithAppBar(navController: NavController, viewModel: HomeScreenViewModel,  onLiked: (Movie) -> Unit) {
-    Column() {
+fun HomeScreenWithAppBar(
+    navController: NavController,
+    viewModel: HomeScreenViewModel,
+    onLiked: (Movie) -> Unit
+) {
+    Column {
         val movieList = viewModel.movieList.collectAsState()
 
         TopBarWithFavorites(navController = navController)
-        ListOfMovie(movieList =movieList.value, navController = navController, onLiked = onLiked)
+        ListOfMovie(movieList = movieList.value, navController = navController, onLiked = onLiked)
     }
 }
 

@@ -29,16 +29,14 @@ import com.example.ld_02.navigation.Screens
 import com.example.ld_02.ui.*
 import com.example.ld_02.ui.theme.resuableComposable.TOpAppBarWithBackButton
 import com.example.ld_02.viewmodel.AddMovieScreenViewModel
-import com.example.ld_02.viewmodel.HomeScreenViewModel
 import com.example.ld_02.viewmodel.ValidationScreenViewmodel
-import kotlin.random.Random
 
 @Composable
 fun AddMovieScreen(navController: NavController, viewModel: AddMovieScreenViewModel) {
     val scaffoldState = rememberScaffoldState()
 
     val addMovie = { m: Movie -> viewModel.addMovie(m) }
-    val navHome = {navController.navigate(Screens.Home.route)}
+    val navHome = { navController.navigate(Screens.Home.route) }
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -207,16 +205,20 @@ fun MainContent(modifier: Modifier = Modifier, onItemClick: (Movie) -> Unit, nav
             ErrorText(erorrMsg = state.ratingError)
             Button(enabled = state.isButtonEnabled, onClick = {
                 viewModel.onEvent(AddMovieFormEvent.Submit)
-                onItemClick(Movie(
-                    title = state.tile,
-                    year = state.year,
-                    genre = listOf(Genre.ACTION),
-                    director = state.director,
-                    actors = state.actors,
-                    plot = state.plot,
-                    images= listOf("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn5eWF8-t1z9Tp_1drxzqKMPGeQAwwSr7lMA&usqp=CAU","https://img.freepik.com/free-photo/colorful-beautiful-flowers-background-blossom-floral-bouquet-decoration-garden-flowers-plant-pattern-wallpapers-greeting-cards-postcards-design-wedding-invites_90220-1105.jpg"),
-                    rating = state.rating.toFloat()
-                )
+                onItemClick(
+                    Movie(
+                        title = state.tile,
+                        year = state.year,
+                        genre = listOf(Genre.ACTION),
+                        director = state.director,
+                        actors = state.actors,
+                        plot = state.plot,
+                        images = listOf(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn5eWF8-t1z9Tp_1drxzqKMPGeQAwwSr7lMA&usqp=CAU",
+                            "https://img.freepik.com/free-photo/colorful-beautiful-flowers-background-blossom-floral-bouquet-decoration-garden-flowers-plant-pattern-wallpapers-greeting-cards-postcards-design-wedding-invites_90220-1105.jpg"
+                        ),
+                        rating = state.rating.toFloat()
+                    )
                 )
             }) {
                 Text(text = stringResource(R.string.add))
@@ -224,6 +226,7 @@ fun MainContent(modifier: Modifier = Modifier, onItemClick: (Movie) -> Unit, nav
         }
     }
 }
+
 @Composable
 fun ErrorText(erorrMsg: String?) {
     if (erorrMsg != null) {

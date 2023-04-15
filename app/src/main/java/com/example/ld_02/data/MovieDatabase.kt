@@ -26,8 +26,8 @@ abstract class MovieDatabase : RoomDatabase() {
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, MovieDatabase::class.java, "movie_db")
                     .fallbackToDestructiveMigration().build().also {
-                    Instance = it
-                }
+                        Instance = it
+                    }
             }
         }
 

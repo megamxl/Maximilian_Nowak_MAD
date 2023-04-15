@@ -36,21 +36,26 @@ fun SetupNavGraph(
     val homeScreenFactory = HomeScreenViewModelFactory(movieRepository = repository)
     val homeScreenViewModel: HomeScreenViewModel = viewModel(factory = homeScreenFactory)
 
-    val addMovieScreenViewModelFactory = AddMovieScreenViewModelFactory(movieRepository = repository)
-    val addMovieScreenViewModel : AddMovieScreenViewModel = viewModel(factory = addMovieScreenViewModelFactory)
+    val addMovieScreenViewModelFactory =
+        AddMovieScreenViewModelFactory(movieRepository = repository)
+    val addMovieScreenViewModel: AddMovieScreenViewModel =
+        viewModel(factory = addMovieScreenViewModelFactory)
 
     val detailScreenViewModelFactory = DetailScreenViewModelFactory(movieRepository = repository)
-    val detailScreenViewModel :DetailScreenViewModel = viewModel(factory = detailScreenViewModelFactory)
+    val detailScreenViewModel: DetailScreenViewModel =
+        viewModel(factory = detailScreenViewModelFactory)
 
-    val favoriteScreenViewModelFactory = FavoriteScreenViewModelFactory(movieRepository = repository)
-    val favoriteScreenViewModel : FavoriteScreenViewModel = viewModel(factory = favoriteScreenViewModelFactory)
+    val favoriteScreenViewModelFactory =
+        FavoriteScreenViewModelFactory(movieRepository = repository)
+    val favoriteScreenViewModel: FavoriteScreenViewModel =
+        viewModel(factory = favoriteScreenViewModelFactory)
 
-    val onLiked =  {movie : Movie -> favoriteScreenViewModel.changeFavoriteChecked(movie)}
+    val onLiked = { movie: Movie -> favoriteScreenViewModel.changeFavoriteChecked(movie) }
 
     NavHost(
         navController = navController,
         startDestination = Screens.Home.route
-    ){
+    ) {
         composable(
             route = Screens.Home.route
         ) {
@@ -58,25 +63,25 @@ fun SetupNavGraph(
         }
         composable(
             route = Screens.Detail.route,
-            arguments = listOf(navArgument(MOVIE_KEY){
+            arguments = listOf(navArgument(MOVIE_KEY) {
                 type = NavType.StringType
             })
         ) {
             DetailScreen(
-                Id =it.arguments?.getString(MOVIE_KEY).toString(),
+                Id = it.arguments?.getString(MOVIE_KEY).toString(),
                 navController = navController,
-                detailScreenViewModel =  detailScreenViewModel,
+                detailScreenViewModel = detailScreenViewModel,
                 onLiked = onLiked
             )
         }
         composable(
             route = Screens.Favorites.route
-        ){
+        ) {
             FavoriteScreen(navController = navController, favoriteScreenViewModel, onLiked)
         }
         composable(
             route = Screens.AddMovie.route
-        ){
+        ) {
             AddMovieScreen(navController = navController, addMovieScreenViewModel)
         }
 
