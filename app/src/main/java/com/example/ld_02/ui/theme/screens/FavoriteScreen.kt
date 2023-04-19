@@ -20,7 +20,7 @@ fun FavoriteScreen(
 
     Column {
         TOpAppBarWithBackButton(title = "Favorites", navController = navController)
-        ListOfMovie(movieList = favlist.value, navController = navController, onLiked = onLiked)
+        ListOfMovie(movieList = favlist.value, navController = navController, onLiked = onLiked, homescreen = false)
     }
 
 

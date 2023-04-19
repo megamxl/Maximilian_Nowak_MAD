@@ -20,7 +20,7 @@ fun HomeScreenWithAppBar(
         val movieList = viewModel.movieList.collectAsState()
 
         TopBarWithFavorites(navController = navController)
-        ListOfMovie(movieList = movieList.value, navController = navController, onLiked = onLiked)
+        ListOfMovie(movieList = movieList.value, navController = navController, onLiked = onLiked, homescreen = true)
     }
 }
 

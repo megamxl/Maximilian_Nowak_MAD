@@ -34,6 +34,7 @@ import com.example.ld_02.navigation.Screens
 fun MovieItem(
     curr: Movie,
     boolean: Boolean,
+    homescreen : Boolean,
     onItemClick: (String) -> Unit = {},
     onLiked: (Movie) -> Unit,
 ) {
@@ -72,15 +73,24 @@ fun MovieItem(
                         .align(Alignment.TopEnd)
                         .padding(horizontal = 15.dp, vertical = 15.dp)
                         .clickable {
-                            if (isFav) {
-                                isFav = !isFav
-                                onLiked(curr)
+                            if (homescreen) {
+                                if (isFav) {
+                                    isFav = !isFav
+                                    onLiked(curr)
+                                } else {
+                                    isFav = !isFav
+                                    onLiked(curr)
+                                }
                             } else {
-                                isFav = !isFav
-                                onLiked(curr)
+                                if (curr.isFavorite) {
+                                    onLiked(curr)
+                                } else {
+                                    onLiked(curr)
+                                }
                             }
                         },
-                    tint = if (isFav) {
+                    tint =
+                    if (isFav) {
                         Color.Cyan
                     } else {
                         Color.White
@@ -129,7 +139,7 @@ fun MovieItem(
 }
 
 @Composable
-fun ListOfMovie(movieList: List<Movie>, navController: NavController, onLiked: (Movie) -> Unit) {
+fun ListOfMovie(movieList: List<Movie>, navController: NavController, onLiked: (Movie) -> Unit, homescreen: Boolean) {
 
 
     LazyColumn {
@@ -139,7 +149,8 @@ fun ListOfMovie(movieList: List<Movie>, navController: NavController, onLiked: (
                     navController.navigate(Screens.Detail.passId(movie.id.toString()))
                 },
                 onLiked = onLiked,
-                boolean = movie.isFavorite
+                boolean = movie.isFavorite,
+                homescreen = homescreen
             )
         }
     }

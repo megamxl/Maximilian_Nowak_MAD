@@ -27,7 +27,7 @@ fun DetailScreen(
     Column {
         if (curr != null) {
             TOpAppBarWithBackButton(curr.title, navController)
-            MovieItem(curr = curr, onLiked = onLiked, boolean = curr.isFavorite)
+            MovieItem(curr = curr, onLiked = onLiked, boolean = curr.isFavorite, homescreen = true)
             Divider(startIndent = 0.dp, thickness = 1.dp, color = Color.Black)
             MovieSlider(links = curr.images)
         }

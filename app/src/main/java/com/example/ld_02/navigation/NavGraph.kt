@@ -32,7 +32,6 @@ fun SetupNavGraph(
     val db = MovieDatabase.getDatabase(LocalContext.current)
     val repository = MovieRepository(movieDao = db.movieDao())
 
-
     val homeScreenFactory = HomeScreenViewModelFactory(movieRepository = repository)
     val homeScreenViewModel: HomeScreenViewModel = viewModel(factory = homeScreenFactory)
 
